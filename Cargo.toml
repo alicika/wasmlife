@@ -4,6 +4,8 @@ version = "0.1.0"
 authors = ["alicika <52126032+alicika@users.noreply.github.com>"]
 edition = "2018"
 description = "made an attribution on the base app"
+license = "MIT/Apache-2.0"
+repository = "https://github.com/alicika/wasmlife"
 
 [lib]
 crate-type = ["cdylib", "rlib"]
