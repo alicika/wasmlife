@@ -1,0 +1,23 @@
+{
+  "name": "wasmlife",
+  "collaborators": [
+    "alicika <52126032+alicika@users.noreply.github.com>"
+  ],
+  "description": "made an attribution on the base app",
+  "version": "0.1.0",
+  "license": "MIT/Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alicika/wasmlife"
+  },
+  "files": [
+    "wasmlife_bg.wasm",
+    "wasmlife.js",
+    "wasmlife.d.ts",
+    "LICENSE_APACHE",
+    "LICENSE_MIT"
+  ],
+  "module": "wasmlife.js",
+  "types": "wasmlife.d.ts",
+  "sideEffects": false
+}
