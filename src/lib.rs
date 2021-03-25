@@ -1,12 +1,22 @@
 mod utils;
 
+extern crate wasm_bindgen;
 use wasm_bindgen::prelude::*;
 use std::fmt::Display;
 use std::fmt;
+use cfg_if::cfg_if;
+
+cfg_if! {
+    // `wee_alloc` featureが有効になっているとき、
+    // `wee_alloc`をグローバルアロケータとして使います。
+    if #[cfg(feature = "wee_alloc")] {
+        extern crate wee_alloc;
+        #[global_allocator]
+        static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
+    }
+}
 
 #[cfg(feature = "wee_alloc")]
-#[global_allocator]
-static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
 const WIDTH: u32 = 64;
 const HEIGHT: u32 = 64;
 
