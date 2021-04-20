@@ -7,8 +7,6 @@ use std::fmt;
 use cfg_if::cfg_if;
 
 cfg_if! {
-    // `wee_alloc` featureが有効になっているとき、
-    // `wee_alloc`をグローバルアロケータとして使います。
     if #[cfg(feature = "wee_alloc")] {
         extern crate wee_alloc;
         #[global_allocator]
