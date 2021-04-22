@@ -1,6 +1,8 @@
 mod utils;
 
 extern crate wasm_bindgen;
+extern crate cfg_if;
+
 use wasm_bindgen::prelude::*;
 use std::fmt::Display;
 use std::fmt;
