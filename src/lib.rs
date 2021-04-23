@@ -1,20 +1,14 @@
 mod utils;
 
 extern crate wasm_bindgen;
-extern crate cfg_if;
+//extern crate wee_alloc;
 
 use wasm_bindgen::prelude::*;
-use std::fmt::Display;
 use std::fmt;
-use cfg_if::cfg_if;
 
-cfg_if! {
-    if #[cfg(feature = "wee_alloc")] {
-        extern crate wee_alloc;
-        #[global_allocator]
-        static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
-    }
-}
+//#[cfg(feature = "wee_alloc")]
+//#[global_allocator]
+//static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
 
 #[cfg(feature = "wee_alloc")]
 const WIDTH: u32 = 64;
@@ -35,8 +29,6 @@ pub struct Universe {
     cells: Vec<Cell>,
 }
 
-
-#[wasm_bindgen]
 impl Universe
 {
     fn get_index(&self, row: u32, column: u32) -> usize {
@@ -114,8 +106,8 @@ impl fmt::Display for Universe {
 #[wasm_bindgen]
 impl Universe {
     pub fn new() -> Universe {
-        let width = WIDTH;
-        let height = HEIGHT;
+        let width = 64; // WIDTH
+        let height = HEIGHT; // HEIGHT
 
         let cells = (0..width * height)
             .map(|i| {
@@ -133,11 +125,20 @@ impl Universe {
             cells,
         }
     }
-}
 
-#[wasm_bindgen]
-impl Universe {
     fn render(&self) -> String {
         self.to_string()
+    }
+
+    pub fn width(&self) -> u32 {
+        self.width
+    }
+
+    pub fn height(&self) -> u32 {
+        self.height
+    }
+
+    pub fn cells(&self) -> *const Cell {
+        self.cells.as_ptr()
     }
 }
