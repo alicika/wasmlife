@@ -125,7 +125,7 @@ impl Universe {
             cells,
         }
     }
-
+    #[allow(unused)]
     fn render(&self) -> String {
         self.to_string()
     }
