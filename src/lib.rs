@@ -101,27 +101,10 @@ impl Universe {
 
         self.cells = next;
     }
-}
 
-impl fmt::Display for Universe {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        for line in self.cells.as_slice().chunks(self.width as usize) {
-            for &cell in line {
-                let symbol = if cell == Cell::Dead { '◻' } else { '◼' };
-                write!(f, "{}", symbol)?;
-            }
-            write!(f, "\n")?;
-        }
-
-        Ok(())
-    }
-}
-
-#[wasm_bindgen]
-impl Universe {
     pub fn new() -> Universe {
         let width = 64; // WIDTH
-        let height = HEIGHT; // HEIGHT
+        let height = 64; // HEIGHT
 
         let cells = (0..width * height)
             .map(|i| {
@@ -139,21 +122,34 @@ impl Universe {
             cells,
         }
     }
-        pub fn set_width(&mut self, width: u32) {
-            self.width = width;
-            self.cells = (0..width * self.height).map(|_i| Cell::Dead).collect();
+
+    pub fn set_width(&mut self, width: u32) {
+        self.width = width;
+        self.cells = (0..width * self.height).map(|_i| Cell::Dead).collect();
+    }
+
+    pub fn set_height(&mut self, height: u32) {
+        self.height = height;
+        self.cells = (0..self.width * height).map(|_i| Cell::Dead).collect();
+    }
+}
+
+impl fmt::Display for Universe {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        for line in self.cells.as_slice().chunks(self.width as usize) {
+            for &cell in line {
+                let symbol = if cell == Cell::Dead { '◻' } else { '◼' };
+                write!(f, "{}", symbol)?;
+            }
+            write!(f, "\n")?;
         }
 
-        /// Set the height of the universe.
-        ///
-        /// Resets all cells to the dead state.
-        pub fn set_height(&mut self, height: u32) {
-            self.height = height;
-            self.cells = (0..self.width * height).map(|_i| Cell::Dead).collect();
+        Ok(())
     }
 }
 
 #[allow(unused)]
+
 impl Universe {
     fn render(&self) -> String {
         self.to_string()
@@ -170,4 +166,18 @@ impl Universe {
     pub fn cells(&self) -> *const Cell {
         self.cells.as_ptr()
     }
+}
+
+#[wasm_bindgen_test]
+pub fn test_tick() {
+    // Let's create a smaller Universe with a small spaceship to test!
+    let mut input_universe = input_spaceship();
+
+    // This is what our spaceship should look like
+    // after one tick in our universe.
+    let expected_universe = expected_spaceship();
+
+    // Call `tick` and then see if the cells in the `Universe`s are the same.
+    input_universe.tick();
+    assert_eq!(&input_universe.get_cells(), &expected_universe.get_cells());
 }
