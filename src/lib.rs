@@ -10,7 +10,7 @@ use std::fmt;
 //#[global_allocator]
 //static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
 
-#[cfg(feature = "wee_alloc")]
+// #[cfg(feature = "wee_alloc")]
 const WIDTH: u32 = 64;
 const HEIGHT: u32 = 64;
 
@@ -51,20 +51,17 @@ impl Universe
         }
         count
     }
-    /// Get the dead and alive values of the entire universe.
+
     pub fn get_cells(&self) -> &[Cell] {
         &self.cells
     }
 
-    /// Set cells to be alive in a universe by passing the row and column
-    /// of each cell as an array.
     pub fn set_cells(&mut self, cells: &[(u32, u32)]) {
         for (row, col) in cells.iter().cloned() {
             let idx = self.get_index(row, col);
             self.cells[idx] = Cell::Alive;
         }
     }
-
 }
 
 #[wasm_bindgen]
@@ -98,13 +95,12 @@ impl Universe {
                 next[idx] = next_cell;
             }
         }
-
         self.cells = next;
     }
 
     pub fn new() -> Universe {
-        let width = 64; // WIDTH
-        let height = 64; // HEIGHT
+        let width = WIDTH;
+        let height = HEIGHT;
 
         let cells = (0..width * height)
             .map(|i| {
@@ -149,7 +145,6 @@ impl fmt::Display for Universe {
 }
 
 #[allow(unused)]
-
 impl Universe {
     fn render(&self) -> String {
         self.to_string()
@@ -166,18 +161,4 @@ impl Universe {
     pub fn cells(&self) -> *const Cell {
         self.cells.as_ptr()
     }
-}
-
-#[wasm_bindgen_test]
-pub fn test_tick() {
-    // Let's create a smaller Universe with a small spaceship to test!
-    let mut input_universe = input_spaceship();
-
-    // This is what our spaceship should look like
-    // after one tick in our universe.
-    let expected_universe = expected_spaceship();
-
-    // Call `tick` and then see if the cells in the `Universe`s are the same.
-    input_universe.tick();
-    assert_eq!(&input_universe.get_cells(), &expected_universe.get_cells());
 }
