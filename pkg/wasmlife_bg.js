@@ -17,6 +17,14 @@ function getUint8Memory0() {
 function getStringFromWasm0(ptr, len) {
     return cachedTextDecoder.decode(getUint8Memory0().subarray(ptr, ptr + len));
 }
+
+let cachegetInt32Memory0 = null;
+function getInt32Memory0() {
+    if (cachegetInt32Memory0 === null || cachegetInt32Memory0.buffer !== wasm.memory.buffer) {
+        cachegetInt32Memory0 = new Int32Array(wasm.memory.buffer);
+    }
+    return cachegetInt32Memory0;
+}
 /**
 */
 export const Cell = Object.freeze({ Dead:0,"0":"Dead",Alive:1,"1":"Alive", });
@@ -53,6 +61,33 @@ export class Universe {
     static new() {
         var ret = wasm.universe_new();
         return Universe.__wrap(ret);
+    }
+    /**
+    * @returns {string}
+    */
+    render() {
+        try {
+            const retptr = wasm.__wbindgen_add_to_stack_pointer(-16);
+            wasm.universe_render(retptr, this.ptr);
+            var r0 = getInt32Memory0()[retptr / 4 + 0];
+            var r1 = getInt32Memory0()[retptr / 4 + 1];
+            return getStringFromWasm0(r0, r1);
+        } finally {
+            wasm.__wbindgen_add_to_stack_pointer(16);
+            wasm.__wbindgen_free(r0, r1);
+        }
+    }
+    /**
+    * @param {number} width
+    */
+    set_width(width) {
+        wasm.universe_set_width(this.ptr, width);
+    }
+    /**
+    * @param {number} height
+    */
+    set_height(height) {
+        wasm.universe_set_height(this.ptr, height);
     }
     /**
     * @returns {number}
