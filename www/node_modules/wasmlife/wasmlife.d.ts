@@ -18,6 +18,18 @@ export class Universe {
 */
   static new(): Universe;
 /**
+* @returns {string}
+*/
+  render(): string;
+/**
+* @param {number} width
+*/
+  set_width(width: number): void;
+/**
+* @param {number} height
+*/
+  set_height(height: number): void;
+/**
 * @returns {number}
 */
   width(): number;
