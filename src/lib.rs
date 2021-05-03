@@ -1,6 +1,7 @@
 mod utils;
 
 extern crate wasm_bindgen;
+extern crate web_sys;
 //extern crate wee_alloc;
 
 use wasm_bindgen::prelude::*;
@@ -157,5 +158,12 @@ impl fmt::Display for Universe {
         }
 
         Ok(())
+    }
+}
+
+#[allow(unused)]
+macro_rules! log {
+    ( $( $t:tt )* ) => {
+        web_sys::console::log_1(&format!( $( $t )* ).into());
     }
 }
