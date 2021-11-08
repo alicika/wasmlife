@@ -2,16 +2,16 @@ mod utils;
 
 extern crate wasm_bindgen;
 extern crate web_sys;
-//extern crate wee_alloc;
+// use wee_alloc;
 
 use wasm_bindgen::prelude::*;
 use std::fmt;
 
-//#[cfg(feature = "wee_alloc")]
-//#[global_allocator]
-//static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
+#[cfg(feature = "wee_alloc")]
+#[global_allocator]
+static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
 
-// #[cfg(feature = "wee_alloc")]
+#[cfg(feature = "wee_alloc")]
 const WIDTH: u32 = 64;
 const HEIGHT: u32 = 64;
 
@@ -100,7 +100,8 @@ impl Universe {
     }
 
     pub fn new() -> Universe {
-        let width = WIDTH;
+        utils::set_panic_hook();
+        let width = 64;
         let height = HEIGHT;
 
         let cells = (0..width * height)
@@ -158,12 +159,5 @@ impl fmt::Display for Universe {
         }
 
         Ok(())
-    }
-}
-
-#[allow(unused)]
-macro_rules! log {
-    ( $( $t:tt )* ) => {
-        web_sys::console::log_1(&format!( $( $t )* ).into());
     }
 }
