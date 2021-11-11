@@ -1,8 +1,8 @@
 mod utils;
+mod macros;
 
 extern crate wasm_bindgen;
 extern crate web_sys;
-// use wee_alloc;
 
 use wasm_bindgen::prelude::*;
 use std::fmt;
@@ -11,7 +11,6 @@ use std::fmt;
 #[global_allocator]
 static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
 
-#[cfg(feature = "wee_alloc")]
 const WIDTH: u32 = 64;
 const HEIGHT: u32 = 64;
 
@@ -76,6 +75,14 @@ impl Universe {
                 let cell = self.cells[idx];
                 let live_neighbors = self.live_neighbor_count(row, col);
 
+                log!(
+                    "cell[{}, {}] is initially {:?} and has {} live neighbors",
+                    row,
+                    col,
+                    cell,
+                    live_neighbors
+                );
+
                 let next_cell = match (cell, live_neighbors) {
                     // Rule 1: Any live cell with fewer than two live neighbours
                     // dies, as if caused by underpopulation.
@@ -93,6 +100,7 @@ impl Universe {
                     (otherwise, _) => otherwise,
                 };
 
+                log!("    it becomes {:?}", next_cell);
                 next[idx] = next_cell;
             }
         }
@@ -101,7 +109,8 @@ impl Universe {
 
     pub fn new() -> Universe {
         utils::set_panic_hook();
-        let width = 64;
+
+        let width = WIDTH;
         let height = HEIGHT;
 
         let cells = (0..width * height)
