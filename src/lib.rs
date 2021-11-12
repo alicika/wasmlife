@@ -75,7 +75,7 @@ impl Universe {
                 let cell = self.cells[idx];
                 let live_neighbors = self.live_neighbor_count(row, col);
 
-                log!(
+                macros::log!(
                     "cell[{}, {}] is initially {:?} and has {} live neighbors",
                     row,
                     col,
@@ -100,7 +100,7 @@ impl Universe {
                     (otherwise, _) => otherwise,
                 };
 
-                log!("    it becomes {:?}", next_cell);
+                macros::log!("    it becomes {:?}", next_cell);
                 next[idx] = next_cell;
             }
         }

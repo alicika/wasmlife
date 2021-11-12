@@ -22,11 +22,11 @@ const ctx = canvas.getContext('2d');
 let animationId= null;
 
 const renderLoop = () => {
-    debugger;
-    universe.tick();
+    // debugger;
 
     drawGrid();
     drawCells();
+    universe.tick();
 
     animationId = requestAnimationFrame(renderLoop);
 };
@@ -105,4 +105,5 @@ playPauseButton.addEventListener("click", event => {
     }
 });
 
+// This used to be `requestAnimationFrame(renderLoop)`.
 play();
