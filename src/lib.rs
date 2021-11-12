@@ -1,5 +1,5 @@
-mod utils;
 mod macros;
+mod utils;
 
 extern crate wasm_bindgen;
 extern crate web_sys;
@@ -75,7 +75,7 @@ impl Universe {
                 let cell = self.cells[idx];
                 let live_neighbors = self.live_neighbor_count(row, col);
 
-                macros::log!(
+                loga!(
                     "cell[{}, {}] is initially {:?} and has {} live neighbors",
                     row,
                     col,
@@ -100,7 +100,7 @@ impl Universe {
                     (otherwise, _) => otherwise,
                 };
 
-                macros::log!("    it becomes {:?}", next_cell);
+                crate::loga!("    it becomes {:?}", next_cell);
                 next[idx] = next_cell;
             }
         }
