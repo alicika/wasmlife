@@ -170,3 +170,12 @@ impl fmt::Display for Universe {
         Ok(())
     }
 }
+
+impl Cell {
+    fn toggle(&mut self) {
+        *self = match *self {
+            Cell::Dead => Cell::Alive,
+            Cell::Alive => Cell::Dead,
+        };
+    }
+}
