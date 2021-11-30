@@ -115,5 +115,13 @@ canvas.addEventListener("click", event => {
     drawCells();
   });
 
-// This used to be `requestAnimationFrame(renderLoop)`.
+// This is used for `requestAnimationFrame(renderLoop)`.
 play();
+
+const fps = new class {
+    constructor() {
+      this.fps = document.getElementById("fps");
+      this.frames = [];
+      this.lastFrameTimeStamp = performance.now();
+    }
+}

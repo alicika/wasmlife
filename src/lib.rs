@@ -175,7 +175,6 @@ impl fmt::Display for Universe {
     }
 }
 
-#[allow(unused)]
 impl Cell {
     fn toggle(&mut self) {
         *self = match *self {
