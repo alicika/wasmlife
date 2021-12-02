@@ -29,8 +29,7 @@ pub struct Universe {
     cells: Vec<Cell>,
 }
 
-impl Universe
-{
+impl Universe {
     fn get_index(&self, row: u32, column: u32) -> usize {
         (row * self.width + column) as usize
     }
@@ -159,6 +158,7 @@ impl Universe {
     pub fn toggle_cell(&mut self, row: u32, column: u32) {
         let idx = self.get_index(row, column);
         self.cells[idx].toggle();
+    }
 }
 
 impl fmt::Display for Universe {
