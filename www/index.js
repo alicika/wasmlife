@@ -23,7 +23,7 @@ let animationId= null;
 
 const renderLoop = () => {
     // debugger;
-
+    fps.render();
     drawGrid();
     drawCells();
     universe.tick();
