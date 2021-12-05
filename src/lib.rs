@@ -182,4 +182,7 @@ impl Cell {
             Cell::Alive => Cell::Dead,
         };
     }
+
+
+let _timer = Timer::new("Universe::tick");
 }
