@@ -1,5 +1,6 @@
 mod macros;
 mod utils;
+mod timer;
 
 extern crate wasm_bindgen;
 extern crate web_sys;
