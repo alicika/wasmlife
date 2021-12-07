@@ -183,7 +183,9 @@ impl Cell {
             Cell::Alive => Cell::Dead,
         };
     }
+}
 
-
+#![allow(unused_variables)]
+fn main() {
 let _timer = Timer::new("Universe::tick");
 }
