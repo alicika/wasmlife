@@ -13,6 +13,7 @@
   "files": [
     "wasmlife_bg.wasm",
     "wasmlife.js",
+    "wasmlife_bg.js",
     "wasmlife.d.ts",
     "LICENSE_APACHE",
     "LICENSE_MIT"

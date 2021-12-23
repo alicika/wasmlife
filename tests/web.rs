@@ -40,3 +40,9 @@ pub fn expected_spaceship() -> Universe {
     universe.set_cells(&[(2,1), (2,3), (3,2), (3,3), (4,2)]);
     universe
 }
+
+#[cfg(test)]
+pub fn timeit() -> Result<std::io::Error> {
+    let timer = Timer::new("Universe::tick");
+    println!(timer);
+}

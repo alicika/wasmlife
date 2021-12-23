@@ -41,4 +41,9 @@ export class Universe {
 * @returns {number}
 */
   cells(): number;
+/**
+* @param {number} row
+* @param {number} column
+*/
+  toggle_cell(row: number, column: number): void;
 }
